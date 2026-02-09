@@ -1,0 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=M+PLUS+Rounded+1c&display=swap");
+@import "tailwindcss";
+
+@theme {
+    --font-m: 'M PLUS Rounded 1c', sans-serif;
+    --font-c: 'Cherry Bomb One', cursive;
+}
