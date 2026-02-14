@@ -1,11 +1,12 @@
 import { cn } from "@/utils";
 import { cva, type VariantProps } from "class-variance-authority";
+import { motion, type HTMLMotionProps } from "motion/react";
 import React from "react";
 
 const buttonVariants = cva(
   // ベーススタイル
 
-  "relative group overflow-hidden inline-flex items-center justify-center font-black text-white tracking-widest uppercase transition-all duration-150 ease-out border-b-[6px] active:border-transparent active:translate-y-[6px] active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none box-border font-c",
+  "relative group overflow-hidden inline-flex items-center justify-center font-black text-white tracking-widest uppercase duration-150 ease-out border-b-[6px] disabled:opacity-50 disabled:pointer-events-none font-n",
   {
     variants: {
       variant: {
@@ -14,6 +15,7 @@ const buttonVariants = cva(
         blue: "bg-sky-400 border-sky-600 hover:bg-sky-300",
         orange: "bg-orange-400 border-orange-600 hover:bg-orange-300",
         purple: "bg-purple-500 border-purple-700 hover:bg-purple-400",
+        yellow: "bg-yellow-400 border-yellow-600 hover:bg-yellow-300",
         gray: "bg-slate-400 border-slate-600 hover:bg-slate-300",
       },
       size: {
@@ -29,15 +31,16 @@ const buttonVariants = cva(
   },
 );
 
-type ShinyButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+type ShinyButtonProps = Omit<HTMLMotionProps<"button">, "ref"> &
   VariantProps<typeof buttonVariants> & {
     children: React.ReactNode;
+    delay?: number; // 出現までの遅延時間
   };
 
 export const ShinyButton = React.forwardRef<
   HTMLButtonElement,
   ShinyButtonProps
->(({ className, children, variant, onClick, ...props }, ref) => {
+>(({ className, children, variant, onClick, delay = 0, ...props }, ref) => {
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!onClick) return;
     await new Promise((resolve) => setTimeout(resolve, 200));
@@ -45,9 +48,22 @@ export const ShinyButton = React.forwardRef<
   };
 
   return (
-    <button
+    <motion.button
       ref={ref}
       type="button"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0, transition: { delay } }}
+      whileTap={{
+        scale: 0.9,
+        y: 6,
+        borderBottomWidth: "2px",
+      }}
+      whileHover={{ scale: 1.05, y: -2 }}
+      transition={{
+        type: "spring",
+        stiffness: 500,
+        damping: 20,
+      }}
       className={cn(buttonVariants({ variant, className }))}
       onClick={handleClick}
       {...props}
@@ -60,7 +76,7 @@ export const ShinyButton = React.forwardRef<
       <span className="relative z-10 flex items-center gap-2 drop-shadow-md select-none">
         {children}
       </span>
-    </button>
+    </motion.button>
   );
 });
 

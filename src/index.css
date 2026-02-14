@@ -1,7 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=M+PLUS+Rounded+1c&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=M+PLUS+Rounded+1c:wght@100;400;800&display=swap");
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Nikumaru';
+  src: url('./assets/fonts/nikumaru.woff2') format('woff2'); 
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
+    --font-n: 'Nikumaru', sans-serif;
     --font-m: 'M PLUS Rounded 1c', sans-serif;
     --font-c: 'Cherry Bomb One', cursive;
 }
