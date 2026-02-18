@@ -47,7 +47,7 @@ export default function BeginnerGamePage() {
 
   return (
     <div className="flex min-h-svh flex-col items-center justify-center">
-      <SpeechBubble variant={speechBubbleVariant}>
+      <SpeechBubble variant={speechBubbleVariant} className="-translate-y-4">
         {speechBubbleContent}
       </SpeechBubble>
       <TopicCard
