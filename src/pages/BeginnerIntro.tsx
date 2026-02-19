@@ -38,6 +38,7 @@ export default function BeginnerIntroPage() {
         {/* ゲーム開始ボタン */}
         <ShinyButton
           variant="orange"
+          className="mt-4"
           onClick={() => {
             startGame(3);
             navigate("/beginner/game");
